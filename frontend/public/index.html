@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAgri - Farm Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <div class="logo">
+                <i class="fas fa-tractor"></i>
+            </div>
+            <div class="logo-text">OpenAgri</div>
+        </div>
+        
+        <div class="nav-links">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Farm Calendar</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map-marked-alt"></i>
+                <span>Farm Maps</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-cloud-sun"></i>
+                <span>Weather</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Security</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-users-cog"></i>
+                <span>User Management</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </div>
+        </div>
+        
+        <div class="user-info">
+            <div class="user-avatar admin-bg">JM</div>
+            <div class="user-details">
+                <div class="user-name">John Mugisha</div>
+                <div class="user-role">Administrator</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search farms, reports, activities...">
+            </div>
+            
+            <div class="actions">
+                <div class="action-btn">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <div class="action-btn">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <div class="action-btn">
+                    <i class="fas fa-user-cog"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Content -->
+        <div class="dashboard">
+            <div class="dashboard-header">
+                <h1 class="dashboard-title">Farm Management Dashboard</h1>
+                <p class="dashboard-subtitle">Welcome back, John. Here's what's happening on your farm today.</p>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon weather">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">26°C</div>
+                        <div class="stat-label">Current Temperature</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon calendar">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Activities Today</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon report">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Reports Generated</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon security">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value">Active</div>
+                        <div class="stat-label">Security Status</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Role Management Section -->
+            <div class="role-management">
+                <div class="role-header">
+                    <h3 class="widget-title">User Management</h3>
+                    <div class="widget-action">Add User</div>
+                </div>
+                
+                <div class="role-tabs">
+                    <div class="role-tab active" data-role="admin">Administrators</div>
+                    <div class="role-tab" data-role="worker">Workers</div>
+                    <div class="role-tab" data-role="viewer">Viewers</div>
+                </div>
+                
+                <div class="role-content active" id="admin-content">
+                    <div class="user-list">
+                        <div class="user-item">
+                            <div class="user-avatar-sm admin-bg">JM</div>
+                            <div class="user-info-sm">
+                                <div class="user-name-sm">John Mugisha</div>
+                                <div class="user-role-sm">Administrator</div>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                        <div class="user-item">
+                            <div class="user-avatar-sm admin-bg">SM</div>
+                            <div class="user-info-sm">
+                                <div class="user-name-sm">Sarah Mukasa</div>
+                                <div class="user-role-sm">Administrator</div>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="role-content" id="worker-content">
+                    <div class="user-list">
+                        <div class="user-item">
+                            <div class="user-avatar-sm worker-bg">PK</div>
+                            <div class="user-info-sm">
+                                <div class="user-name-sm">Peter Kato</div>
+                                <div class="user-role-sm">Field Worker</div>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                        <div class="user-item">
+                            <div class="user-avatar-sm worker-bg">AN</div>
+                            <div class="user-info-sm">
+                                <div class="user-name-sm">Alice Namukasa</div>
+                                <div class="user-role-sm">Irrigation Specialist</div>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="role-content" id="viewer-content">
+                    <div class="user-list">
+                        <div class="user-item">
+                            <div class="user-avatar-sm viewer-bg">RB</div>
+                            <div class="user-info-sm">
+                                <div class="user-name-sm">Robert Bbosa</div>
+                                <div class="user-role-sm">Investor</div>
+                            </div>
+                            <i class="fas fa-ellipsis-v"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Widgets Container -->
+            <div class="widgets-container">
+                <!-- Farm Map Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Farm Maps</h3>
+                        <div class="widget-action">Save Changes</div>
+                    </div>
+                    
+                    <div class="map-controls">
+                        <button class="map-btn" id="draw-polygon">
+                            <i class="fas fa-draw-polygon"></i> Draw Farm
+                        </button>
+                        <button class="map-btn" id="add-marker">
+                            <i class="fas fa-map-marker-alt"></i> Add Marker
+                        </button>
+                        <button class="map-btn secondary" id="clear-map">
+                            <i class="fas fa-trash-alt"></i> Clear
+                        </button>
+                    </div>
+                    
+                    <div id="farm-map"></div>
+                    
+                    <h4 style="margin-bottom: 15px;">Farm Areas</h4>
+                    <div class="farm-list">
+                        <div class="farm-item" data-farm="main">
+                            <div class="farm-color" style="background: #e74c3c;"></div>
+                            <div class="farm-info">
+                                <div class="farm-name">Main Farm Area</div>
+                                <div class="farm-size">12.5 acres</div>
+                            </div>
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="farm-item" data-farm="north">
+                            <div class="farm-color" style="background: #3498db;"></div>
+                            <div class="farm-info">
+                                <div class="farm-name">North Fields</div>
+                                <div class="farm-size">8.2 acres</div>
+                            </div>
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <div class="farm-item" data-farm="south">
+                            <div class="farm-color" style="background: #2ecc71;"></div>
+                            <div class="farm-info">
+                                <div class="farm-name">South Pasture</div>
+                                <div class="farm-size">15.3 acres</div>
+                            </div>
+                            <i class="fas fa-edit"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Farm Calendar Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Farm Calendar</h3>
+                        <div class="widget-action">View All</div>
+                    </div>
+                    
+                    <div class="calendar-grid">
+                        <div class="calendar-day header">S</div>
+                        <div class="calendar-day header">M</div>
+                        <div class="calendar-day header">T</div>
+                        <div class="calendar-day header">W</div>
+                        <div class="calendar-day header">T</div>
+                        <div class="calendar-day header">F</div>
+                        <div class="calendar-day header">S</div>
+                        
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day event">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day">11</div>
+                        
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day event">14</div>
+                        <div class="calendar-day">15</div>
+                        <div class="calendar-day today">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day event">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                    </div>
+                    
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon high">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <div class="activity-details">
+                                <span class="activity-priority priority-high">High Priority</span>
+                                <div class="activity-name">Plant Maize in Field A</div>
+                                <div class="activity-time">8:00 AM - 11:00 AM</div>
+                            </div>
+                            <div class="activity-status status-pending">Pending</div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon medium">
+                                <i class="fas fa-tint"></i>
+                            </div>
+                            <div class="activity-details">
+                                <span class="activity-priority priority-medium">Medium Priority</span>
+                                <div class="activity-name">Irrigation Check</div>
+                                <div class="activity-time">1:00 PM - 2:00 PM</div>
+                            </div>
+                            <div class="activity-status status-pending">Pending</div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon low">
+                                <i class="fas fa-tractor"></i>
+                            </div>
+                            <div class="activity-details">
+                                <span class="activity-priority priority-low">Low Priority</span>
+                                <div class="activity-name">Equipment Maintenance</div>
+                                <div class="activity-time">3:00 PM - 4:30 PM</div>
+                            </div>
+                            <div class="activity-status status-completed">Completed</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Weather Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Weather Forecast</h3>
+                        <div class="widget-action">Detailed View</div>
+                    </div>
+                    
+                    <div class="weather-container">
+                        <div class="weather-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="weather-info">
+                            <div class="weather-temp">26°C</div>
+                            <div class="weather-desc">Sunny with clear skies</div>
+                            <div class="weather-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kampala, Uganda</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="weather-forecast">
+                        <div class="forecast-day">
+                            <div class="forecast-date">Today</div>
+                            <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                            <div class="forecast-temp">26°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="forecast-date">Wed</div>
+                            <div class="forecast-icon"><i class="fas fa-cloud-sun"></i></div>
+                            <div class="forecast-temp">24°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="forecast-date">Thu</div>
+                            <div class="forecast-icon"><i class="fas fa-cloud"></i></div>
+                            <div class="forecast-temp">23°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="forecast-date">Fri</div>
+                            <div class="forecast-icon"><i class="fas fa-cloud-rain"></i></div>
+                            <div class="forecast-temp">22°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div class="forecast-date">Sat</div>
+                            <div class="forecast-icon"><i class="fas fa-cloud-showers-heavy"></i></div>
+                            <div class="forecast-temp">21°</div>
+                        </div>
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <div class="toggle-label">Rain Alerts</div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-container">
+                        <div class="toggle-label">Extreme Weather Warnings</div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Reports Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title">Recent Reports</h3>
+                        <div class="widget-action">Generate New</div>
+                    </div>
+                    
+                    <div class="report-item">
+                        <div class="report-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="report-details">
+                            <div class="report-name">Crop Yield Analysis</div>
+                            <div class="report-date">Generated: July 14, 2023</div>
+                        </div>
+                        <div class="download-btn">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="report-item">
+                        <div class="report-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="report-details">
+                            <div class="report-name">Irrigation Efficiency Report</div>
+                            <div class="report-date">Generated: July 10, 2023</div>
+                        </div>
+                        <div class="download-btn">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="report-item">
+                        <div class="report-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="report-details">
+                            <div class="report-name">Planting Progress Report</div>
+                            <div class="report-date">Generated: July 5, 2023</div>
+                        </div>
+                        <div class="download-btn">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="report-item">
+                        <div class="report-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="report-details">
+                            <div class="report-name">Financial Summary - Q2 2023</div>
+                            <div class="report-date">Generated: July 1, 2023</div>
+                        </div>
+                        <div class="download-btn">
+                            <i class="fas fa-download"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
